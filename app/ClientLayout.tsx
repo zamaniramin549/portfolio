@@ -3,6 +3,7 @@
 import { useState, useEffect, Suspense } from "react";
 import Sidebar from "@/components/Sidebar";
 import ProgressBar from "@/components/ProgressBar";
+import CommandPalette from "@/components/CommandPalette";
 
 export default function ClientLayout({
   children,
@@ -34,6 +35,7 @@ export default function ClientLayout({
       <Suspense fallback={null}>
         <ProgressBar />
       </Suspense>
+      <CommandPalette />
       <Sidebar initialCollapsed={initialCollapsed} initialTheme={initialTheme} />
       <div
         className={`min-h-screen bg-zinc-50 dark:bg-zinc-950 transition-all duration-300 ${
