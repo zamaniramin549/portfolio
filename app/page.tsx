@@ -5,6 +5,7 @@ import { useState, useEffect, useCallback } from "react";
 import { motion, useScroll, useTransform, Variants, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import GithubHeatmap from "@/components/GithubHeatmap";
+import TechStack from "@/components/TechStack";
 
 export default function Portfolio() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -229,6 +230,9 @@ export default function Portfolio() {
       >
         <GithubHeatmap username="zamaniramin549" />
       </motion.section>
+
+      {/* TECH STACK & MASTERY SECTION */}
+      <TechStack />
 
       {/* PROJECTS SECTION */}
       <section id="projects" className="mb-32 scroll-mt-28">
