@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useState, useEffect, useCallback } from "react";
+import { useState, useEffect } from "react";
 import { motion, useScroll, useTransform, Variants, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import GithubHeatmap from "@/components/GithubHeatmap";
@@ -229,6 +229,11 @@ export default function Portfolio() {
         className="mb-32 scroll-mt-28"
       >
         <GithubHeatmap username="zamaniramin549" />
+        <div className="mt-8 flex justify-end">
+          <Link href="/github" className="group inline-flex items-center gap-2 text-sm font-medium text-zinc-500 dark:text-zinc-400 hover:text-teal-600 dark:hover:text-teal-400 transition-colors">
+            See GitHub stats <svg className="w-4 h-4 transform transition-transform group-hover:translate-x-1" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M17 8l4 4m0 0l-4 4m4-4H3"></path></svg>
+          </Link>
+        </div>
       </motion.section>
 
       {/* TECH STACK & MASTERY SECTION */}

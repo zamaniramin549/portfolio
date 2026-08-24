@@ -14,6 +14,7 @@ export default function CommandPalette() {
 
   const commands = [
     { id: "home", name: "Go to Home", category: "Navigation", href: "/" },
+    { id: "github", name: "View GitHub stats", category: "Navigation", href: "/github" },
     { id: "projects", name: "View Projects", category: "Navigation", href: "/projects" },
     { id: "resume", name: "Read Resume", category: "Navigation", href: "/resume" },
     { id: "blog", name: "Latest Writing", category: "Navigation", href: "/blog" },
