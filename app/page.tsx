@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useState, useEffect, useCallback } from "react";
 import { motion, useScroll, useTransform, Variants, AnimatePresence } from "framer-motion";
 import Image from "next/image";
+import GithubHeatmap from "@/components/GithubHeatmap";
 
 export default function Portfolio() {
   const [lightboxIndex, setLightboxIndex] = useState<number | null>(null);
@@ -17,16 +18,14 @@ export default function Portfolio() {
     { value: "95%", label: "Code Coverage", description: "Bulletproof unit & end-to-end testing" },
   ];
 
-  // Auto-advance ticker effect with reset capability
   useEffect(() => {
     const timer = setInterval(() => {
       setCurrentStatIndex((prev) => (prev + 1) % stats.length);
     }, 3000);
 
     return () => clearInterval(timer);
-  }, [currentStatIndex, stats.length]); // Reset timer whenever index changes (manual click or auto)
+  }, [currentStatIndex, stats.length]);
 
-  // Interactive handler for bullet clicks
   const handleBulletClick = (index: number) => {
     setCurrentStatIndex(index);
   };
@@ -132,7 +131,7 @@ export default function Portfolio() {
       <motion.section
         id="about"
         style={{ opacity: heroOpacity, y: heroY }}
-        className="min-h-[calc(100vh-4rem)] lg:min-h-screen flex flex-col justify-center relative mb-32 scroll-mt-28 py-12 lg:py-0 origin-top"
+        className="min-h-[calc(100vh-4rem)] lg:min-h-screen flex flex-col justify-center relative mb-24 scroll-mt-28 py-12 lg:py-0 origin-top"
       >
         <div className="flex flex-col lg:flex-row gap-12 items-center justify-between w-full">
           <div className="flex-1 space-y-6">
@@ -218,6 +217,17 @@ export default function Portfolio() {
           <span className="text-xs uppercase tracking-widest text-zinc-500 dark:text-zinc-400 font-semibold">Scroll</span>
           <svg className="w-5 h-5 text-teal-500 animate-bounce" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M19 14l-7 7m0 0l-7-7m7 7V3"></path></svg>
         </div>
+      </motion.section>
+
+      {/* GITHUB ACTIVITY HEATMAP SECTION */}
+      <motion.section
+        variants={sectionVariants}
+        initial="hidden"
+        whileInView="visible"
+        viewport={{ once: false, margin: "-100px" }}
+        className="mb-32 scroll-mt-28"
+      >
+        <GithubHeatmap username="zamaniramin549" />
       </motion.section>
 
       {/* PROJECTS SECTION */}
