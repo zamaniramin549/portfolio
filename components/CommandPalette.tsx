@@ -3,12 +3,14 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
+import { useSoundEffects } from "@/hooks/useSoundEffects";
 
 export default function CommandPalette() {
   const [isOpen, setIsOpen] = useState(false);
   const [query, setQuery] = useState("");
   const [selectedIndex, setSelectedIndex] = useState(0);
   const router = useRouter();
+  const { playSound } = useSoundEffects();
 
   const commands = [
     { id: "home", name: "Go to Home", category: "Navigation", href: "/" },
@@ -61,6 +63,9 @@ export default function CommandPalette() {
 
   // Keyboard Navigation inside Modal
   const handleModalKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "ArrowDown" || e.key === "ArrowUp") {
+      playSound("click");
+    }
     if (e.key === "ArrowDown") {
       e.preventDefault();
       setSelectedIndex((prev) => (prev + 1) % (filteredCommands.length || 1));

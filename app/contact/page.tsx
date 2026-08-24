@@ -3,6 +3,7 @@
 import Link from "next/link";
 import { useState } from "react";
 import { motion, Variants, useScroll, useTransform, AnimatePresence } from "framer-motion";
+import { useSoundEffects } from "@/hooks/useSoundEffects";
 
 export default function ContactPage() {
   const [formData, setFormData] = useState({ name: "", email: "", subject: "", message: "" });
@@ -12,7 +13,7 @@ export default function ContactPage() {
     message: "",
     type: "success",
   });
-
+  const { playSound } = useSoundEffects();
   const { scrollY } = useScroll();
 
   // Smooth Interpolations over 150px of scrolling
@@ -46,7 +47,6 @@ export default function ContactPage() {
     setIsSubmitting(true);
 
     try {
-      // Replace YOUR_ACCESS_KEY_HERE with your key from web3forms.com
       const response = await fetch("https://api.web3forms.com/submit", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -57,6 +57,7 @@ export default function ContactPage() {
       });
 
       if (response.ok) {
+        playSound("success");
         showToast("Message sent successfully! I'll get back to you soon.");
         setFormData({ name: "", email: "", subject: "", message: "" });
       } else {

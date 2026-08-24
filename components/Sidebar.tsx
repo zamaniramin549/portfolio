@@ -4,6 +4,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { usePathname } from "next/navigation";
 import { useState, useEffect } from "react";
+import { useSoundEffects } from "@/hooks/useSoundEffects";
 
 interface SidebarProps {
   initialCollapsed?: boolean;
@@ -15,6 +16,7 @@ export default function Sidebar({ initialCollapsed = false, initialTheme = "ligh
   const [theme, setTheme] = useState(initialTheme);
   const [isCollapsed, setIsCollapsed] = useState(initialCollapsed);
   const pathname = usePathname();
+  const { playSound } = useSoundEffects();
 
   // Sync state if cookies change
   useEffect(() => {
@@ -25,6 +27,7 @@ export default function Sidebar({ initialCollapsed = false, initialTheme = "ligh
   const closeMenu = () => setIsMobileMenuOpen(false);
 
   const toggleTheme = () => {
+    playSound("toggle");
     const newTheme = theme === "dark" ? "light" : "dark";
     setTheme(newTheme);
 
@@ -38,11 +41,17 @@ export default function Sidebar({ initialCollapsed = false, initialTheme = "ligh
   };
 
   const toggleSidebar = () => {
+    playSound("click");
     const newCollapsedState = !isCollapsed;
     setIsCollapsed(newCollapsedState);
     document.cookie = `sidebar_collapsed=${newCollapsedState}; path=/; max-age=31536000; SameSite=Lax`;
 
     window.dispatchEvent(new Event("sidebar_toggle"));
+  };
+
+  const handleNavClick = () => {
+    playSound("nav");
+    closeMenu();
   };
 
   useEffect(() => {
@@ -191,7 +200,7 @@ export default function Sidebar({ initialCollapsed = false, initialTheme = "ligh
                 <Link
                   key={item.name}
                   href={item.href}
-                  onClick={closeMenu}
+                  onClick={handleNavClick}
                   title={isCollapsed ? item.name : undefined}
                   className={`group flex items-center text-sm font-medium transition-colors ${
                     isCollapsed ? "justify-center p-2.5 rounded-xl hover:bg-zinc-100 dark:hover:bg-zinc-800" : ""
